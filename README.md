@@ -1,4 +1,4 @@
-**********Fraud Detection using Graph Algorithms and Machine Learning***********
+**********Fraud Detection using Graph Algorithms and Machine Learning*********
 __________________________________________________________________________________________
 ** Dataset **
 
@@ -11,7 +11,9 @@ Some Fields are:
 customerID, merchantID, amount, age, gender, category, Zip code, fraud
 __________________________________________________________________________________________
 *** System Specifications ***
+
 Python 3.0
+
 neo4j comminuty server 3.5.5
 __________________________________________________________________________________________
 
@@ -21,8 +23,10 @@ Inorder to further improve our prediction model, we added graph features by proj
 By using following queries, we were able to construct new features and extract to .CSV file
 
 
+
 CREATE CONSTRAINT ON (c:Customer) ASSERT c.id IS UNIQUE;
 CREATE CONSTRAINT ON (b:Bank) ASSERT b.id IS UNIQUE;
+
 
 USING PERIODIC COMMIT
 LOAD CSV WITH HEADERS FROM
@@ -45,7 +49,9 @@ CREATE (transaction:Transaction {amount: line.amount, fraud: line.fraud, categor
 CREATE (customer)-[:MAKE]->(transaction);
 
 
+
 *** Create Relationships using below query ***
+
 MATCH (c1:Customer)-[:MAKE]->(t1:Transaction)-[:WITH]->(b1:Bank)
 WITH c1, b1
 MERGE (p1:Placeholder {id: b1.id})
@@ -84,6 +90,3 @@ CALL apoc.export.csv.query("MATCH (p:Placeholder) RETURN p.id AS id, p.degree AS
 	3. Refer BankFraudDetection.ipynb for detailed code execution
 
 __________________________________________________________________________________________
-
-
-
